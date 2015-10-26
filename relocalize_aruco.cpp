@@ -103,11 +103,27 @@ std::vector< cv::Point3f > RelocBoard::calcLocation(cv::Mat query_img) {
     tvec_cam = - R * tvec; // translation of inverse
     rvec_cam = - R * rvec; // translation of inverse
 
+
+
+    std::vector<Point2f> world_corners;
+    std::vector<Point2f> projected_corners;
+    world_corners.push_back(Point2f(1.0,0.0));
+    world_corners.push_back(Point2f(0.0,0.0));
+    world_corners.push_back(Point2f(0.0,0.1));
+    cv::perspectiveTransform(world_corners,projected_corners,R);
+    float deltaX = projected_corners[1].x-projected_corners[0].x;
+    float deltaY = projected_corners[0].y-projected_corners[1].y;
+    float angle = atan2(deltaY,deltaX);
+    cout << "Anglue: " << angle << endl;
+
     coords.x = tvec_cam.at<double>(0);
     coords.y = tvec_cam.at<double>(1);
     coords.z = tvec_cam.at<double>(2);
 
-    rots.x = rvec_cam.at<double>(0);
+
+
+
+    rots.x = angle;
     rots.y = rvec_cam.at<double>(1);
     rots.z = rvec_cam.at<double>(2);
 
