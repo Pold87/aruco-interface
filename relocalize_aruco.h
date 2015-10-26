@@ -30,7 +30,7 @@ class RelocBoard {
              int markersY,
              float markerLength,
              float markerSeparation);
-   cv::Point3f calcLocation(cv::Mat query_img);
+  std::vector< cv::Point3f > calcLocation(cv::Mat query_img);
   
 };
 

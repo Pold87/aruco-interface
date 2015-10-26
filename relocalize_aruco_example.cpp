@@ -13,10 +13,12 @@ int main() {
   cv::Mat query_img = cv::imread("img/picboard.jpg");
 
   // Get estimation (x, y, z) in pixels from relocalizer
-  cv::Point3f estimation = reloc.calcLocation(query_img);
+  std::vector < cv::Point3f > estimations = reloc.calcLocation(query_img);
 
   // Print estimations
-  cout << estimation.x << " " << estimation.y << " " << estimation.z << endl;
+  cout << estimations[0].x << " " << estimations[0].y << " " << estimations[0].z << endl;
+
+  cout << estimations[1].x << " " << estimations[1].y << " " << estimations[1].z << endl;
 
   
 }

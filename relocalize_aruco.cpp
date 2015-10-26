@@ -56,7 +56,7 @@ RelocBoard::RelocBoard(int markersX, int markersY, float markerLength, float mar
 
 }
 
-cv::Point3f RelocBoard::calcLocation(cv::Mat query_img) {
+std::vector< cv::Point3f > RelocBoard::calcLocation(cv::Mat query_img) {
 
   vector< int > ids;
   vector< vector< Point2f > > corners, rejected;
@@ -80,7 +80,7 @@ cv::Point3f RelocBoard::calcLocation(cv::Mat query_img) {
   // estimate board pose
   int markersOfBoardDetected = 0;
 
-  Point3f coords;
+  Point3f coords, rots;
 
   if(ids.size() > 0) {
     markersOfBoardDetected =
@@ -96,21 +96,40 @@ cv::Point3f RelocBoard::calcLocation(cv::Mat query_img) {
     
     R = R.t();  // rotation of inverse
     
-    cv::Mat tvec_cam;
+    cv::Mat tvec_cam, rvec_cam;
+
+    // The rotation is coded in R, and after using Rodrigues also in rvec. I'm not sure if one has to use the translation of the inverse as well or just rvec and how it relates to roll, pitch, yaw.
     
     tvec_cam = - R * tvec; // translation of inverse
+    rvec_cam = - R * rvec; // translation of inverse
 
     coords.x = tvec_cam.at<double>(0);
     coords.y = tvec_cam.at<double>(1);
-    coords.z = tvec_cam.at<double>(2); 
+    coords.z = tvec_cam.at<double>(2);
+
+    rots.x = rvec_cam.at<double>(0);
+    rots.y = rvec_cam.at<double>(1);
+    rots.z = rvec_cam.at<double>(2);
+
     
   } else {
     
     coords.x = -1;
     coords.y = -1;
     coords.z = -1;
+
+    rots.x = -1;
+    rots.y = -1;
+    rots.z = -1;
+
   }
 
-  return coords;
+
+  std::vector<Point3f> vals(2);
+
+  vals[0] = coords;
+  vals[1] = rots;
+  
+  return vals;
   
 }
