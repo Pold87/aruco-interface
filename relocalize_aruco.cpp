@@ -114,11 +114,14 @@ std::vector< cv::Point3f > RelocBoard::calcLocation(cv::Mat query_img) {
     float deltaX = projected_corners[1].x-projected_corners[0].x;
     float deltaY = projected_corners[0].y-projected_corners[1].y;
     float angle = atan2(deltaY,deltaX);
+    // Convert angle ENU to NED
+    angle -= M_PI/2;
     cout << "Anglue: " << angle << endl;
 
-    coords.x = tvec_cam.at<double>(0);
-    coords.y = tvec_cam.at<double>(1);
-    coords.z = tvec_cam.at<double>(2);
+    // Convert ENU to NED
+    coords.x = tvec_cam.at<double>(1);
+    coords.y = tvec_cam.at<double>(0);
+    coords.z = -tvec_cam.at<double>(2);
 
 
 
