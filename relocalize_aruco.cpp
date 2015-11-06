@@ -32,7 +32,7 @@ static bool readCameraParameters(string filename, Mat &camMatrix, Mat &distCoeff
 RelocBoard::RelocBoard(int markersX, int markersY, float markerLength, float markerSeparation) {
 
     // int dictionaryId = atoi(getParam("-d", argc, argv).c_str());
-  int dictionaryId = atoi("DICT_6x6_50=8");
+  int dictionaryId =1;// atoi("DICT_6x6_50=8");
 
   dictionary =
         aruco::getPredefinedDictionary(aruco::PREDEFINED_DICTIONARY_NAME(dictionaryId));
