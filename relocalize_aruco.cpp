@@ -43,9 +43,8 @@ RelocBoard::RelocBoard(int markersX, int markersY, float markerLength, float mar
                                    markerLength, markerSeparation,
                                    dictionary);
 
-  bool readOk = readCameraParameters("../cam_char.yml",
-                                     camMatrix,
-                                     distCoeffs);
+  bool readOk = readCameraParameters("../out_camera_vreo.xml",camMatrix,distCoeffs);
+//  bool readOk = readCameraParameters("../cam_char.yml",camMatrix,distCoeffs);
   if(!readOk) {
     cerr << "Invalid camera file" << endl;
   }
