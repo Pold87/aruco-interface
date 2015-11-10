@@ -29,7 +29,7 @@ class RelocBoard {
   RelocBoard(int markersX,
              int markersY,
              float markerLength,
-             float markerSeparation);
+             float markerSeparation, std::string cameraParametersFileName);
   std::vector< cv::Point3f > calcLocation(cv::Mat query_img);
   
 };

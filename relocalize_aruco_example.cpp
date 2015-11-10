@@ -7,7 +7,7 @@ using namespace std;
 int main() {
 
   // Construct relocalizer with reference image path
-  RelocBoard reloc(6, 6, 0.2, 0.2);
+  RelocBoard reloc(6, 6, 0.2, 0.2,"cam_char.yml");
 
   // Read in query image
   cv::Mat query_img = cv::imread("img/picboard.jpg");

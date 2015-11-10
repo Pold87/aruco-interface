@@ -29,7 +29,7 @@ static bool readCameraParameters(string filename, Mat &camMatrix, Mat &distCoeff
     return true;
 }
 
-RelocBoard::RelocBoard(int markersX, int markersY, float markerLength, float markerSeparation) {
+RelocBoard::RelocBoard(int markersX, int markersY, float markerLength, float markerSeparation, string cameraParametersFileName) {
 
     // int dictionaryId = atoi(getParam("-d", argc, argv).c_str());
   int dictionaryId =1;// atoi("DICT_6x6_50=8");
@@ -45,7 +45,9 @@ RelocBoard::RelocBoard(int markersX, int markersY, float markerLength, float mar
 
  // bool readOk = readCameraParameters("../out_camera_vreo.xml",camMatrix,distCoeffs);
 //  bool readOk = readCameraParameters("../cam_char.yml",camMatrix,distCoeffs);
-  bool readOk = readCameraParameters("../vreocam_parameters2.yml",camMatrix,distCoeffs);
+  //bool readOk = readCameraParameters("../vreocam_parameters2.yml",camMatrix,distCoeffs);
+  bool readOk = readCameraParameters(cameraParametersFileName,camMatrix,distCoeffs);
+
   if(!readOk) {
     cerr << "Invalid camera file" << endl;
   }
